@@ -35,7 +35,7 @@ Feature: Place Order
       | 20000 | Regular |10 |
 
   Scenario Outline: "<ClientType>" Client should be able to cancel the existing order
-    Given User login with "<ClientID>" belongs to "<ClientType>"
+    Given User login with "<ClientID>" belongs to "<ClientType>"
     And User has already existed order
     When User cancel the existing order for "<ClientID>"
     Then User sees "order cancelled successfully" message
@@ -46,8 +46,6 @@ Feature: Place Order
       | 20000 | Regular |
 
 
-
-Feature: Place Order
   Scenario: Orders should be sorted by the number of seconds they are in the queue
     Given User is a regular customer login with client ID "1001"
     When User place an order with "10" donuts
