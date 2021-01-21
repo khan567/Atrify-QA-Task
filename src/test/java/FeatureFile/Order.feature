@@ -1,28 +1,28 @@
 Feature: Place Order
-  Scenario Outline: Adding order to queue successfully by "<ClientType>"
-    Given User login with"<ClientID>" belongs to "<ClientType>"
-    When User add "<Donuts>" to the order
-    Then User sees order created successfully
+  Scenario Outline: Adding order to queue successfully by Premium and Regular Client
+    Given User login with <ClientID> belongs to <ClientType>
+    When User add <Donuts> to the order
+    Then User sees <Message>
 
     Examples:
-      | ClientID | Donuts | ClientType |
-      | 999 | 10 | Premium |
-      | 20000 | 10 | Regular |
+      | ClientID | Donuts | ClientType | Message                      |
+      | 999      | 10     | Premium    |“Order created successfully”  |
+      | 20000    | 10     | Regular    |“order created successfully”  |
 
 
-  Scenario Outline: "<ClientType>" Client should not able to place more than one order
-    Given User login with "<ClientID>" belongs to "<ClientType>"
-    When User add "<Donuts>" to the order
+  Scenario Outline: Premium and Regular Client should not able to place more than one order
+    Given User login with <ClientID> belongs to <ClientType>
+    When User add <Donuts> to the order
     Then User sees order created successfully
-    When User try to create second order of "<Donuts>"
-    Then User sees an error message "order already exist"
+    When User try to create second order of <Donuts>
+    Then User sees <Message>
 
     Examples:
-      | ClientID | ClientType | Donuts |
-      | 999 | Premium | 10 |
-      | 20000 | Regular |10 |
+      | ClientID | ClientType | Donuts | Message               |
+      | 999      | Premium    | 10     | “order already exist” |
+      | 20000    | Regular    | 10     | “order already exist” |
 
-  Scenario Outline: "<ClientType>" Client should not able to edit existing order
+  Scenario Outline: Premium and Regular Client should not able to edit existing order
     Given User login with "<ClientID>" belongs to "<ClientType>"
     When User add "<Donuts>" to the order
     Then User sees order created successfully
@@ -34,7 +34,7 @@ Feature: Place Order
       | 999 | Premium | 10 |
       | 20000 | Regular |10 |
 
-  Scenario Outline: "<ClientType>" Client should be able to cancel the existing order
+  Scenario Outline: Premium and Regular Client should be able to cancel the existing order
     Given User login with "<ClientID>" belongs to "<ClientType>"
     And User has already existed order
     When User cancel the existing order for "<ClientID>"
@@ -46,7 +46,7 @@ Feature: Place Order
       | 20000 | Regular |
 
 
-  Scenario: Orders should be sorted by the number of seconds they are in the queue
+  Scenario Outline: Orders should be sorted by the number of seconds they are in the queue
     Given User is a regular customer login with client ID "1001"
     When User place an order with "10" donuts
     Then User sees order "1" created successfully for client ID "1001"
