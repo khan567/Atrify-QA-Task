@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "/Users/muhammadkhalil/Desktop/GitProjects/Artify-Project/src/test/java/FeatureFile/Order.Feature",
+@CucumberOptions(features = "Path to feature file",
                     glue = "StepDefinition")
 
 

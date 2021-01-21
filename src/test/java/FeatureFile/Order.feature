@@ -5,7 +5,7 @@ Feature: Donut Priority Queue for premium and regular customers
   // The second scenario run for client ID 20000 and client type Regular
 
   Scenario Outline: Adding order to queue successfully by Premium and Regular Client
-    Given User login with <ClientID> belongs to <ClientType>
+    Given User login with <ClientID> with <ClientType>
     When User add <Donuts> to the order
     Then User sees <Message>
 
@@ -17,7 +17,7 @@ Feature: Donut Priority Queue for premium and regular customers
 
 
   Scenario Outline: Premium and Regular Client should not able to place more than one order
-    Given User login with <ClientID> belongs to <ClientType>
+    Given User login with <ClientID> with <ClientType>
     When User add <Donuts> to the order
     Then User sees order created successfully
     When User try to create second order of <Donuts>
@@ -29,7 +29,7 @@ Feature: Donut Priority Queue for premium and regular customers
       | 20000    | Regular    | 10     |  order already exist  |
 
   Scenario Outline: Premium and Regular Client should not able to edit existing order
-    Given User login with <ClientID> belongs to <ClientType>
+    Given User login with <ClientID> with <ClientType>
     When User add <Donuts> to the order
     Then User sees order created successfully
     When User try to edit the above created order
@@ -41,7 +41,7 @@ Feature: Donut Priority Queue for premium and regular customers
       | 20000    | Regular    | 10     | Order can not be edited |
 
   Scenario Outline: Premium and Regular Client should be able to cancel the existing order
-    Given User login with <ClientID> belongs to <ClientType>
+    Given User login with <ClientID> with <ClientType>
     And User has already existed order
     When User cancel the existing order for <ClientID>
     Then User sees <Message>
