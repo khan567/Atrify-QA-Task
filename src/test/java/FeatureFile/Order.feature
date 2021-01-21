@@ -7,7 +7,7 @@ Feature: Place Order
     Examples:
       | ClientID | Donuts | ClientType | Message                      |
       | 999      | 10     | Premium    |“Order created successfully”  |
-      | 20000    | 10     | Regular    |“order created successfully”  |
+      | 20000    | 10     | Regular    |“order created successfully”  |
 
 
   Scenario Outline: Premium and Regular Client should not able to place more than one order
@@ -35,7 +35,7 @@ Feature: Place Order
       | 20000    | Regular    | 10     | “Order can not be edited”  |
 
   Scenario Outline: Premium and Regular Client should be able to cancel the existing order
-    Given User login with "<ClientID>" belongs to "<ClientType>"
+    Given User login with "<ClientID>" belongs to "<ClientType>"
     And User has already existed order
     When User cancel the existing order for "<ClientID>"
     Then User sees <Message>
@@ -57,7 +57,7 @@ Feature: Place Order
 
 Examples:
       | ClientID1 | ClientID2 | Message                      |
-      | 1001      | 1002	| “Order created successfully” |
+      | 1001      | 1002	  | “Order created successfully” |
 
   Scenario Outline: Orders from premium customers always have a higher priority than orders from regular customers
     Given User is a <ClientType> with <ClientID>
@@ -73,12 +73,15 @@ Examples:
       |Regular customer | 1001       | “Order created successfully” |
       |Premium customer | 999        | “Order created successfully” |
 
-  Scenario: Client should be able to check the queue position and wait time
+  Scenario Outline: Client should be able to check the queue position and wait time
     Given User is a "Regular" client having order in the queue
     Then User sees order position in the queue along with wait time
     And Wait time should change based on orders in the queue
 
-
+    Examples:
+      |ClientType       | ClientID   | Message                      |
+      |Regular cleint   | 1001       | “Order created successfully” |
+      |Premium customer | 999        | “Order created successfully” |
 
   Scenario:Manager should be able to see all entries in the queue with the approximate wait time
     Given There are multiple order in the queue
