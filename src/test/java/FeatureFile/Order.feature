@@ -5,7 +5,7 @@ Feature: Donut Priority Queue for premium and regular customers
   // The second scenario run for client ID 20000 and client type Regular
 
   Scenario Outline: Adding order to queue successfully by Premium and Regular Client
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID>" belongs to "<ClientType>"
     When User add "<Donuts>" to the order
     Then User sees "<Message>"
 
@@ -15,31 +15,31 @@ Feature: Donut Priority Queue for premium and regular customers
       | 20000    | 10     | Regular    | order created successfully  |
 
   Scenario Outline: Premium and Regular Client should not able to place more than one order
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID>" belongs to "<ClientType>"
     When User add "<Donuts>" to the order
-    Then User sees "<Message>"
+    Then User sees "<Message1>"
     When User try to create second order of "<Donuts>"
-    Then User sees "<Message>"
+    Then User sees "<Message2>"
 
     Examples:
-      | ClientID | ClientType | Donuts | Message                      |
-      | 999      | Premium    | 10     |  order created successfully  |
-      | 20000    | Regular    | 10     |  order already exist         |
+      | ClientID | ClientType | Donuts | Message1                      | Message2           |
+      | 999      | Premium    | 10     |  order created successfully   |order already exist |
+      | 20000    | Regular    | 10     |  order created successfully   |order already exist |
 
   Scenario Outline: Premium and Regular Client should not able to edit existing order
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID>" belongs to "<ClientType>"
     When User add "<Donuts>" to the order
-    Then User sees "<Message>"
+    Then User sees "<Message1>"
     When User try to edit the above created order
-    Then User sees "<Message>"
+    Then User sees "<Message2>"
 
     Examples:
-      | ClientID | ClientType | Donuts | Message                    |
-      | 999 	 | Premium    | 10     | Order created successfully |
-      | 20000    | Regular    | 10     | Order can not be edited    |
+      | ClientID | ClientType | Donuts | Message1                    | Message2                |
+      | 999 	 | Premium    | 10     | Order created successfully  | Order can not be edited |
+      | 20000    | Regular    | 10     | Order created successfully  | Order can not be edited |
 
   Scenario Outline: Premium and Regular Client should be able to cancel the existing order
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID>" belongs to "<ClientType>"
     And User has already existed order
     When User cancel the existing order for "<ClientID>"
     Then User sees "<Message>"
@@ -50,32 +50,34 @@ Feature: Donut Priority Queue for premium and regular customers
       | 20000    | Regular    | Order cancelled successfully |
 
   Scenario Outline: Orders should be sorted by the number of seconds they are in the queue
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID1>" belongs to "<ClientType1>"
     When User place an order with "<Donuts>"
     Then User sees "<Message>"
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID2>" belongs to "<ClientType2>"
     When User place an order with "<Donuts>"
     Then User sees "<Message>"
     And User sees order are sorted by the number of seconds
 
 Examples:
-      | ClientType |ClientID | Donuts | Message                    |
-      | Regular    |1001	 | 10     | Order created successfully |
-      | Premium    |1001     | 20     | Order created successfully |
+      | ClientType1 |ClientType2 |ClientID1 |ClientID2 | Donuts | Message                    |
+      | Regular    | Regular     |  1001    |	 1002  | 10     | Order created successfully |
+      | Premium    | Premium     |  998     |	 999   | 10     | Order created successfully |
+
 
   Scenario Outline: Orders from premium customers always have a higher priority than orders from regular customers
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID1>" belongs to "<ClientType1>"
     When User place an order with "<Donuts>"
     Then User sees "<Message>"
-    Given User login with "<ClientID>" with "<ClientType>"
+    Given User login with "<ClientID2>" with "<ClientType2>"
     When User place an order with "<Donuts>"
     Then User sees "<Message>"
     And User sees order from premium customers is given higher priority
 
-Examples:
-      |ClientType | ClientID  | Donuts | Message                    |
-      |Regular    | 1001      |   10   | Order created successfully |
-      |Premium    | 999       |   20   | Order created successfully |
+    Examples:
+      | ClientType1 |ClientType2  | ClientID1 |ClientID2 | Donuts | Message                    |
+      | Regular     | Premium     |  1001     |	 999     | 10     | Order created successfully |
+      | Premium     | Regular     |  998      |	 1002    | 10     | Order created successfully |
+
 
   Scenario: Client should be able to check the queue position and wait time
     Given User having order in the queue
