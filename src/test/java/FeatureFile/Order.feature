@@ -68,7 +68,7 @@ Examples:
     Given User login with "<ClientID1>" belongs to "<ClientType1>"
     When User place an order with "<Donuts>"
     Then User sees "<Message>"
-    Given User login with "<ClientID2>" with "<ClientType2>"
+    Given User login with "<ClientID2>" belongs to "<ClientType2>"
     When User place an order with "<Donuts>"
     Then User sees "<Message>"
     And User sees order from premium customers is given higher priority
