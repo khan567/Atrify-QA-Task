@@ -1,9 +1,5 @@
 Feature: Donut Priority Queue for premium and regular customers
 
-  // Note: First Scenario
-  // The first scenarios run for client ID 999 and client type premium
-  // The second scenario run for client ID 20000 and client type Regular
-
   Scenario Outline: Adding order to queue successfully by Premium and Regular Client
     Given User login with "<ClientID>" belongs to "<ClientType>"
     When User add "<Donuts>" to the order
