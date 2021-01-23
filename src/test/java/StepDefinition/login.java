@@ -12,15 +12,9 @@ public class login extends Base {
     WebDriver driver;
     @Given("User login with {string} with {string}")
     public void userLoginWithWith(String arg0, String arg1) {
-        driver.findElement(By.xpath("xpath")).sendKeys("username");
+        driver.findElement(By.xpath("Element identification")).sendKeys("username");
         driver.findElement(By.xpath("xpath")).sendKeys("password");
         driver.findElement(By.xpath("xpath")).click();
     }
 
-    @Given("User is a regular customer login with {string}")
-    public void userIsARegularCustomerLoginWith(String arg0) {
-        driver.findElement(By.xpath("xpath here ")).sendKeys("username");
-        driver.findElement(By.xpath("xpath")).sendKeys("password");
-        driver.findElement(By.xpath("xpath")).click();
-    }
 }

@@ -52,10 +52,10 @@ Feature: Donut Priority Queue for premium and regular customers
   Scenario Outline: Orders should be sorted by the number of seconds they are in the queue
     Given User login with "<ClientID>" with "<ClientType>"
     When User place an order with "<Donuts>"
-    Then User sees "<Message>" for "<ClientID>"
+    Then User sees "<Message>"
     Given User login with "<ClientID>" with "<ClientType>"
     When User place an order with "<Donuts>"
-    Then User sees "<Message>" for "<ClientID>"
+    Then User sees "<Message>"
     And User sees order are sorted by the number of seconds
 
 Examples:
@@ -66,10 +66,10 @@ Examples:
   Scenario Outline: Orders from premium customers always have a higher priority than orders from regular customers
     Given User login with "<ClientID>" with "<ClientType>"
     When User place an order with "<Donuts>"
-    Then User sees "<Message>" for "<ClientID>"
+    Then User sees "<Message>"
     Given User login with "<ClientID>" with "<ClientType>"
     When User place an order with "<Donuts>"
-    Then User sees "<Message>" for "<ClientID>"
+    Then User sees "<Message>"
     And User sees order from premium customers is given higher priority
 
 Examples:
